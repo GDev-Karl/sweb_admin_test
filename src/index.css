@@ -54,18 +54,18 @@ layer(base);
   --color-brand-900: #262e89;
   --color-brand-950: #161950;
 
-  --color-blue-light-25: #f5fbff;
-  --color-blue-light-50: #f0f9ff;
-  --color-blue-light-100: #e0f2fe;
-  --color-blue-light-200: #b9e6fe;
-  --color-blue-light-300: #7cd4fd;
-  --color-blue-light-400: #36bffa;
-  --color-blue-light-500: #0ba5ec;
-  --color-blue-light-600: #0086c9;
-  --color-blue-light-700: #026aa2;
-  --color-blue-light-800: #065986;
-  --color-blue-light-900: #0b4a6f;
-  --color-blue-light-950: #062c41;
+  --color-blue-light-25: #fff3fe;  /* 50 */
+  --color-blue-light-50: #ffe6ff;  /* 100 */
+  --color-blue-light-100: #ffccfd; /* 200 */
+  --color-blue-light-200: #ffa4f9; /* 300 */
+  --color-blue-light-300: #ff6df3; /* 400 */
+  --color-blue-light-400: #fe37f4; /* 500 */
+  --color-blue-light-500: #e91edb; /* 600 */
+  --color-blue-light-600: #bc0fac; /* 700 */
+  --color-blue-light-700: #9a0e8c; /* 800 */
+  --color-blue-light-800: #7d1270; /* 900 */
+  --color-blue-light-900: #55004b; /* 950 */
+
 
   --color-gray-25: #fcfcfd;
   --color-gray-50: #f9fafb;

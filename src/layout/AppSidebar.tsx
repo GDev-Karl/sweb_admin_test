@@ -17,6 +17,8 @@ import {
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
 import SidebarWidget from "./SidebarWidget";
+import SwebLogo from "./SwebLogo";
+
 
 type NavItem = {
   name: string;
@@ -306,6 +308,7 @@ const AppSidebar: React.FC = () => {
         <Link to="/">
           {isExpanded || isHovered || isMobileOpen ? (
             <>
+              {/*
               <img
                 className="dark:hidden"
                 src="/images/logo/logo.svg"
@@ -320,14 +323,11 @@ const AppSidebar: React.FC = () => {
                 width={150}
                 height={40}
               />
+              */}
+              <SwebLogo className="w-50 h-10 text-gray-900 dark:text-white" />
             </>
           ) : (
-            <img
-              src="/images/logo/logo-icon.svg"
-              alt="Logo"
-              width={32}
-              height={32}
-            />
+            <SwebLogo className="w-15 h-5 text-gray-900 dark:text-white" />
           )}
         </Link>
       </div>
