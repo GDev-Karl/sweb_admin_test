@@ -28,8 +28,6 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          # Empreinte hôte SSH (sécurité) - si tu as défini le secret
-          fingerprint: ${{ secrets.SSH_HOST_FINGERPRINT }}
           source: "."
           target: "~/sweb_admin"
           rm: true         # nettoie la cible avant copie (évite vieux artefacts)
@@ -40,7 +38,6 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          fingerprint: ${{ secrets.SSH_HOST_FINGERPRINT }}
           script_stop: true
           script: |
             set -e
