@@ -1,0 +1,61 @@
+name: Deploy sweb_admin
+
+on:
+  push:
+    branches: [ test ]
+
+# Evite que deux déploiements se marchent dessus
+concurrency:
+  group: deploy-sweb_admin-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # (Optionnel) Vérifier la connexion SSH en pinant l'empreinte du serveur
+      - name: Show SSH host fingerprint
+        run: |
+          echo "Using pinned SSH host fingerprint (if provided)."
+
+      - name: Copy files to server via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          # Empreinte hôte SSH (sécurité) - si tu as défini le secret
+          fingerprint: ${{ secrets.SSH_HOST_FINGERPRINT }}
+          source: "."
+          target: "~/sweb_admin"
+          rm: true         # nettoie la cible avant copie (évite vieux artefacts)
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          fingerprint: ${{ secrets.SSH_HOST_FINGERPRINT }}
+          script_stop: true
+          script: |
+            set -e
+            cd ~/sweb_admin
+
+            # Arrêt/suppression propres si le conteneur existe
+            docker stop sweb_admin || true
+            docker rm sweb_admin || true
+
+            # Build image (tag simple)
+            docker build -t sweb_admin:latest .
+
+            # Démarrage (port hôte 3005 -> port conteneur 80)
+            docker run -d --name sweb_admin -p 3006:80 --restart unless-stopped sweb_admin:latest
+
+            # Petite vérif locale dans le conteneur
+            sleep 2
+            docker logs sweb_admin --tail=50
